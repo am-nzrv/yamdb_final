@@ -1,4 +1,4 @@
-
+![WORKFLOW_STATUS](https://github.com/gomunculusigor/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 # Проект YaMDb
 
 ## Описание
