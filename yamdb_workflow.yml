@@ -46,13 +46,13 @@ jobs:
           file: ./api_yamdb/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/api_yamdb:latest
-
-  deploy:
+deploy:
+    name: Deploy the yamdb_final
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
-      - name: executing remote ssh command to deploy
+      - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -60,7 +60,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/api_yamdb:latest
+            sudo docker pull nanice/yamdb_final:latest
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
@@ -71,6 +71,10 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             sudo docker-compose up -d
+            sudo docker-compose exec -T web python manage.py makemigrations users --noinput
+            sudo docker-compose exec -T web python manage.py makemigrations reviews --noinput
+            sudo docker-compose exec -T web python manage.py migrate --noinput
+            sudo docker-compose exec -T web python manage.py collectstatic --noinput
 
   send_message_telegram:
     runs-on: ubuntu-latest
