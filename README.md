@@ -1,5 +1,6 @@
 ![yamdb workflow](https://github.com/gomunculusigor/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
+
 ## **Описание проекта API для YaMDB.**
 API для проекта YaMDB - проекта соц.сети, в котором пользователи могут размещать обзоры на произведения в разных категориях (фильмы, музыка, кино) и жанрах, после чего на основании оценок формируется рейтинг произведений. 
 
