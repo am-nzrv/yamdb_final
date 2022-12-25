@@ -7,7 +7,7 @@ from users.models import User
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for row in DictReader(open('./static/data/users.csv',
-                                   encoding='utf-8')):
+                                   encoding='latin-1')):
             user = User(id=row['id'],
                         username=row['username'],
                         email=row['email'],
@@ -31,7 +31,7 @@ class Command(BaseCommand):
                                      genre_id=row['genre_id'])
             genre_title.save()
         for row in DictReader(open('./static/data/review.csv',
-                                   encoding='utf-8')):
+                                   encoding='latin-1')):
             review = Review(id=row['id'],
                             title_id=row['title_id'],
                             text=row['text'],
@@ -40,7 +40,7 @@ class Command(BaseCommand):
                             )
             review.save()
         for row in DictReader(open('./static/data/comments.csv',
-                                   encoding='utf-8')):
+                                   encoding='latin-1')):
             comments = Comments(id=row['id'],
                                 review_id=row['review_id'],
                                 text=row['text'],
