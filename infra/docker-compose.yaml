@@ -4,6 +4,10 @@ services:
         image: postgres:13.0-alpine
         volumes:
             - db_data:/var/lib/postgresql/data/
+        environment:
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+            POSTGRES_DB: praktikum
         env_file:
             - ./.env
     web:
