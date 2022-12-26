@@ -1,16 +1,11 @@
 version: '3.8'
-
 services:
-
     db:
-        container_name: db
         image: postgres:13.0-alpine
         volumes:
-            - db:/var/lib/postgresql/data/
+            - db_data:/var/lib/postgresql/data/
         env_file:
             - ./.env
-        networks:
-            - djangonetwork
     web:
         image: sayonararf/api_yamdb:latest
         restart: always
@@ -21,10 +16,6 @@ services:
             - db
         env_file:
             - ./.env
-        links:
-            - db:db
-        networks:
-            - djangonetwork
     nginx:
         image: nginx:1.21.3-alpine
         ports:
@@ -35,11 +26,7 @@ services:
             - media_value:/var/html/media/
         depends_on:
             - web
-
-networks:
-      djangonetwork:
-          driver: bridge
 volumes:
-    db:
+    db_data:
     static_value:
     media_value:
