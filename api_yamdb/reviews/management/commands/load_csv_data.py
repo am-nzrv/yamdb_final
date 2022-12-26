@@ -29,8 +29,7 @@ class Command(BaseCommand):
             genre_title = GenreTitle(title_id=row['title_id'],
                                      genre_id=row['genre_id'])
             genre_title.save()
-        for row in DictReader(open('./static/data/review.csv',
-                                   encoding='utf-8')):
+        for row in DictReader(open('./static/data/review.csv')):
             review = Review(id=row['id'],
                             title_id=row['title_id'],
                             text=row['text'],
@@ -38,8 +37,7 @@ class Command(BaseCommand):
                             score=row['score'],
                             )
             review.save()
-        for row in DictReader(open('./static/data/comments.csv',
-                                   encoding='utf-8')):
+        for row in DictReader(open('./static/data/comments.csv')):
             comments = Comments(id=row['id'],
                                 review_id=row['review_id'],
                                 text=row['text'],
